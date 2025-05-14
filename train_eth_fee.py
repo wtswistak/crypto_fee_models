@@ -49,4 +49,4 @@ model.fit(Xtr, ytr)
 print('MAE / horizon:',
       mean_absolute_error(yte, model.predict(Xte), multioutput='raw_values'))
 
-joblib.dump(model, 'fee_multi6.pkl')
+joblib.dump(model, 'eth_fee_model_v3.pkl')
