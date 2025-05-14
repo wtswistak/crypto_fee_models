@@ -1,0 +1,5 @@
+flask==3.1.1 
+joblib==1.5.0           # ładowanie/zapisywanie modeli Pickle
+numpy==2.2.5           # tablice wektorów wejściowych
+xgboost==3.0.1          # silnik modelu (Inference)
+scikit-learn==1.6.1      # silnik modelu (Inference)
