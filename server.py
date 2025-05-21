@@ -1,12 +1,28 @@
+from dotenv import load_dotenv
+import os
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
 
 app = Flask(__name__)
 
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
+if not API_KEY:
+    raise ValueError("API_KEY environment variable is not set")
+
 model = joblib.load("eth_fee_model_v3.pkl")
 
+def require_api_key(fn):
+    def wrapper(*args, **kwargs):
+        api_key = request.headers.get("x-api-key")
+        if api_key != API_KEY:
+            return jsonify({"error": "Invalid API key"}), 401
+        return fn(*args, **kwargs)
+    return wrapper
+
 @app.route("/predict", methods=["POST"])
+@require_api_key
 def predict():
     """
     Body JSON:
